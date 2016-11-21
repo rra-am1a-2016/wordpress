@@ -19,7 +19,18 @@
 
          var_dump($_POST);
 
-        
+        $userdata = array(
+           user_pass => "geheim",
+           user_login => $_POST["loginname"],
+           user_nicename => $_POST["loginname"],
+           first_name => $_POST["firstname"],
+           last_name => $_POST["lastname"],
+           user_email => $_POST["email"],
+           role => "administrator");
+
+         wp_insert_user($userdata);
+
+         /*
          $wpdb->query(
                $wpdb->prepare("INSERT INTO `wp_users` (`ID`,
                                           `user_login`,
@@ -90,7 +101,8 @@
                                                        $id,
                                                        'wp_capabilities',
                                                        serialize(array("administrator" => true)))
-         );         
+         );
+         */         
          return $output;
       }
       else
