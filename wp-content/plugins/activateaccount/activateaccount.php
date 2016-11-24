@@ -16,53 +16,17 @@
          if (strcmp($_POST["password"], $_POST["controle_password"]) == 0)
          {
                // Als ze matchen dan updaten passwords.
-                
+               wp_set_password($_POST["password"], $_POST["id"]);
 
+               // Doorsturen naar de login_page
+               header("Refresh: 2; url=http://localhost/2016-2017/am1a/groenten/wp-login.php");             
+               return "Uw wachtwoord is gewijzigd.";
          }
          else
          {
-            // Matchen ze niet dan moet je opnieuw doorverwezen worden naar de vorige pagina.
-               
-         }
-
-         
-
-         $sql = "SELECT * FROM `users` WHERE `id` = ".$_POST["id"];
-         $result = mysqli_query($conn, $sql);
-         $record = mysqli_fetch_array($result, MYSQLI_ASSOC);
-      
-         if ( $_SESSION["userrole"] == 'admin')
-         {
-            $old_password = $record["password"];
-         }
-         else
-         {
-            $old_password = sha1($_POST["old_password"]);
-         }
-
-         if ( strcmp($record["password"], $old_password) == 0)
-         {
-            $sql = "UPDATE `users` 
-                    SET `password` = '".sha1($_POST["password"])."'
-                    WHERE `id` = ".$_POST["id"];
-
-            $result = mysqli_query($conn, $sql);
- 
-            if ($result)
-            {
-               echo "Uw password is succesvol gewijzigd";
-               header("Refresh: 3; url=index.php?content=login_form");
-            }
-            else
-            {
-               echo "Er is iets mis gegaan. Probeer opnieuw";
-               header("Refresh: 3; url=index.php?content=change_password");
-            }
-         }
-         else
-         {
-               echo "Uw oude password klopt niet. Probeer het opnieuw";
-               header("Refresh: 4; url=index.php?content=change_password&id=".$_POST["id"]);
+               header("Refresh: 2; url=http://localhost/2016-2017/am1a/groenten/index.php/activeer-uw-account/?id=".
+                                          $_POST["id"]."&pw=".$_POST["old_pw"]);
+               return "De ingevoerde wachtwoorden zijn verschillend, probeer het nogmaals.";
          }
       }
 
@@ -90,7 +54,7 @@
                               </tr>
                           </table>
                          <input type='hidden' name='id' value='".$_GET["id"]."'>
-                         <input type='hidden' name='pw' value='".$_GET["pw"]."'>
+                         <input type='hidden' name='old_pw' value='".$_GET["pw"]."'>
                         </form>";
             return $form;
          }
