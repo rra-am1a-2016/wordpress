@@ -67,9 +67,11 @@
                                     user_email => $email,
                                     role => "subscriber");
 
-                  $last_id = wp_insert_user($userdata);        
+                  $last_id = wp_insert_user($userdata);
+
+                  $user = get_user_by("ID", $last_id);       
         
-                  //var_dump($result); exit();
+                  //var_dump($user); exit();
                  
                   // Als de query correct is ontvangen en uitgevoerd.
                   if (!empty($last_id))
@@ -94,7 +96,7 @@
                                           <h3>Beste ".$firstname." ".$infix." ".$lastname.",</h3>".
                                                 "<p>Bedankt voor het registreren, klik op onderstaande link<p>".
                                                 "<p><a href='http://localhost/2016-2017/am1a/groenten/index.php/activeer-uw-account/?id=".
-                                                $last_id."&pw=".$tempPassword."'>activatielink</a></p><p>om uw account te activeren</p>". 
+                                                $last_id."&pw=".$user->data->user_pass."'>activatielink</a></p><p>om uw account te activeren</p>". 
                                                 "<p>Met vriendelijke groet,</p>". 
                                                 "<p>De beheerder van de site</p>
                                           </body>

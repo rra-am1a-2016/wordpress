@@ -7,9 +7,9 @@
       Description: Deze plugin activates an account and changes the password.
       Text Domain: arjanderuijter.nl/plugins/activateaccount
    */
-
+   
    function activateaccount()
-   {
+   {     
       if ( isset($_POST["submit"]))
       {
          $sql = "SELECT * FROM `users` WHERE `id` = ".$_POST["id"];
@@ -53,48 +53,31 @@
 
       if ( isset($_GET["id"]))
       {
-         // Selecteer het record op basis van een id 
-         $sql = "SELECT * FROM `users` WHERE `id` = ".$_GET["id"];
+         // Selecteer het record op basis van een id
+         $user = get_user_by("ID", $_GET["id"] );
 
-         // Vuur de query af op de database
-         $result = mysqli_query($conn, $sql);
-
-         $record = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
-         var_dump($record);
-         $formtekst = "";
-         $formtekst .=  "<form action='index.php?content=change_password' method='post'>
+         if ( strcmp($_GET["pw"], $user->data->user_pass) == 0)
+         {
+            $form = "";
+            $form .=  "<form action='".$_SERVER['REQUEST_URI']."' method='post'>
                            <table>
-                            <tr>
-                               <td>oude wachtwoord: </td>
-                               <td><input type='password' name='old_password' ";
-                           
-                               if ($_SESSION['userrole'] == 'admin') 
-                               { 
-                                  $formtekst .= "placeholder='Als admin niet invullen' ";
-                                  $formtekst .= "readonly";
-
-                               } 
-                           
-                                  $formtekst .= "></td>
-                           </tr>
-                           <tr>
-                              <td>wachtwoord: </td>
-                              <td><input type='password' name='password'></td>
-                           </tr>
-                           <tr>
-                              <td>type nogmaals wachtwoord: </td>
-                              <td><input type='password' name='controle_password'> </td>
-                           </tr>
-                           <tr>
-                              <td></td>
-                              <td><input type='submit' name='submit' value='wijzig wachtwoord!'></td>
-                           </tr>
-                     </table>
-                           <input type='hidden' name='id' value='".$_GET["id"]."'>
-                  </form>";
-         echo $formtekst;
-         exit();
+                              <tr>
+                                    <td>wachtwoord: </td>
+                                    <td><input type='password' name='password'></td>
+                              </tr>
+                              <tr>
+                                    <td>type nogmaals wachtwoord: </td>
+                                    <td><input type='password' name='controle_password'> </td>
+                              </tr>
+                              <tr>
+                                    <td></td>
+                                    <td><input type='submit' name='submit' value='wijzig wachtwoord!'></td>
+                              </tr>
+                          </table>
+                         <input type='hidden' name='id' value='".$_GET["id"]."'>
+                        </form>";
+            return $form;
+         }
       }
    }
 
