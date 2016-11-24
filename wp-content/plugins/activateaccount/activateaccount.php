@@ -12,6 +12,21 @@
    {     
       if ( isset($_POST["submit"]))
       {
+         // Matchen de twee ingevulde passwords. 
+         if (strcmp($_POST["password"], $_POST["controle_password"]) == 0)
+         {
+               // Als ze matchen dan updaten passwords.
+                
+
+         }
+         else
+         {
+            // Matchen ze niet dan moet je opnieuw doorverwezen worden naar de vorige pagina.
+               
+         }
+
+         
+
          $sql = "SELECT * FROM `users` WHERE `id` = ".$_POST["id"];
          $result = mysqli_query($conn, $sql);
          $record = mysqli_fetch_array($result, MYSQLI_ASSOC);
@@ -75,6 +90,7 @@
                               </tr>
                           </table>
                          <input type='hidden' name='id' value='".$_GET["id"]."'>
+                         <input type='hidden' name='pw' value='".$_GET["pw"]."'>
                         </form>";
             return $form;
          }
