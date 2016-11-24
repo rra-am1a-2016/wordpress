@@ -32,7 +32,14 @@
 
       if (isset($_POST["submit"]))
       {
-            
+            if ( empty($_POST["firstname"]) ||
+                 empty($_POST["lastname"]) ||
+                 empty($_POST["email"]) ||
+                 empty($_POST["loginname"]))
+            {      
+                  header("Refresh: 2; url=http://localhost/2016-2017/am1a/groenten/index.php/registratie/");
+                  return "U heeft een van de velden niet ingevuld";
+            }
             // Stel de juiste tijdzone in voor het bepalen van de tijd
             date_default_timezone_set("Europe/Amsterdam");
 
@@ -125,11 +132,11 @@
       }
       else
       {
-         $output  = "<form action='' method='post'>";
+         $output  = "<form id='registrationform' action='".$_SERVER["REQUEST_URI"]."' method='post'>";
          $output .= "<table>";
          $output .= "<tr>
                         <td>voornaam: </td>
-                        <td><input type='text' name='firstname' ></td>
+                        <td><input type='text' name='firstname' required ></td>
                      </tr>";
          $output .= "<tr>
                         <td>tussenvoegsel: </td>
@@ -137,15 +144,15 @@
                      </tr>";
          $output .= "<tr>
                         <td>achternaam: </td>
-                        <td><input type='text' name='lastname' ></td>
+                        <td><input type='text' name='lastname' required></td>
                      </tr>";
          $output .= "<tr>
                         <td>gebruikersnaam: </td>
-                        <td><input type='text' name='loginname' ></td>
+                        <td><input type='text' name='loginname' required></td>
                      </tr>";
          $output .= "<tr>
                         <td>e-mail: </td>
-                        <td><input type='email' name='email' ></td>
+                        <td><input type='email' name='email' required></td>
                      </tr>";
          $output .= "<tr>
                         <td></td>

@@ -1,0 +1,50 @@
+@import url('../twentysixteen/style.css');
+/*
+   Theme Name: Twenty Sixteen custom
+   Theme URI:  arjanderuijter/twentysixteencustom.nl
+   Description: Dit is een uitbreiding van het bestaande thema Twenty Sixteen
+   Author: Arjan de Ruijter
+   Template: twentysixteen
+*/
+
+/**
+ * Table of Contents
+ *
+ * 1.0 - Registration form
+ *    1.1 - .....
+ * 2.0 - .....
+ * 3.0 - .....
+ */
+
+
+/**
+ * 1.0 - Registration form
+ *
+ * Dit zijn aanpassingen voor het registratie formulier
+ */
+#registrationform td
+{
+   /*background-color: pink;*/
+   font-family: Verdana;
+   
+   font-size: 1.1em;
+
+}
+
+#registrationform tr td:first-child
+{
+   /*background-color: green;*/
+   padding-left: 1em;
+}
+
+#registrationform input[type=submit]
+{
+   width: 100%;
+   background-color: #007acc;
+}
+
+#registrationform input[type=submit]:hover
+{
+   background-color: #000000;
+   
+}
