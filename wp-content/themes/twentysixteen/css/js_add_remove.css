@@ -1,0 +1,11 @@
+button.test
+{
+   padding: 1em;
+   background-color: greenyellow;
+}
+
+input[type=number]
+{
+   width: 40px;
+   margin-left: 1em;
+}
